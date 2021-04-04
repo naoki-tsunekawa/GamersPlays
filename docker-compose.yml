@@ -17,7 +17,7 @@ services:
     volumes:
       - db-volume:/var/lib/mysql
     environment:
-      - EDITOR=vim
+      MYSQL_ROOT_PASSWORD: password
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
