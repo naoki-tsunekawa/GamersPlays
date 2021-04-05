@@ -1,26 +1,65 @@
 version: '3'
 services:
-  web:
+  # =========ローカルと本番切り替え===========
+  # db:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: 1234
+  #     MYSQL_DATABASE: GamersPlays_db
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
+  #   ports:
+  #     - "4306:3306"
+  # ======================================
+  app:
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    # =========ローカルと本番切り替え===========
+    # command: bundle exec puma -C config/puma.rb
+    command: bundle exec puma -C config/puma.rb -e production
+    # ======================================
     volumes:
       - .:/GamersPlays
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-      - chrome
-    tty: true
-    stdin_open: true
-  db:
-    image: mysql:5.7
+      - public-data:/GamersPlays/public
+      - tmp-data:/GamersPlays/tmp
+      - log-data:/GamersPlays/log
+  web:
+    build:
+      context: containers/nginx
     volumes:
-      - db-volume:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-  chrome:
-    image: selenium/standalone-chrome:latest
+      - public-data:/GamersPlays/public
+      - tmp-data:/GamersPlays/tmp
     ports:
-      - 4444:4444
+      - 80:80
 volumes:
-  db-volume:
+  mysql-data:
+  public-data:
+  tmp-data:
+  log-data:
+
+
+  # db:
+  #   image: mysql:5.7
+  #   volumes:
+  #     - db-volume:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  # web:
+  #   build: .
+  #   command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  #   volumes:
+  #     - .:/GamersPlays
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - db
+  #     - chrome
+  #   tty: true
+  #   stdin_open: true
+  # chrome:
+  #   image: selenium/standalone-chrome:latest
+  #   ports:
+  #     - 4444:4444
+# volumes:
+  # db-volume:
