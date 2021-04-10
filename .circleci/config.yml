@@ -14,26 +14,22 @@ jobs:
           MYSQL_DATABASE: GamersPlays_test
     working_directory: ~/GamersPlays_test
     steps:
-      - checkout
+      - setup
       - run:
-          name: "bundle install"
-          command: bundle install --path vendor/bundle
-      # MySQLと接続できるまで待ちます
+          name: rails db:migrate
+          command: bundle exec rails db:migrate
       - run:
-          name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
       - run:
-          name: "initialize DB"
-          command: |
-            bundle exec rake db:create
-            bundle exec rake db:migrate
-      - run:
-          name: RSpec
+          name: Rspec
           command: bundle exec rspec
-
 
 workflows:
   version: 2
-  workflows:
+  test_and_deploy:
     jobs:
-      - test
+      - build
+      - test:
+          requires:
+            - build
