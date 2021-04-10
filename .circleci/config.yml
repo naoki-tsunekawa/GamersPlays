@@ -22,11 +22,11 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-      - run:
-          name: default mysql client install
-          command: |
-            sudo apt update
-            sudo apt-get install default-mysql-client
+      # - run:
+      #     name: default mysql client install
+      #     command: |
+      #       sudo apt update
+      #       sudo apt-get install default-mysql-client
       - run:
           name: install dependencies
           command: |
