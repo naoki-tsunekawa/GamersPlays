@@ -17,12 +17,12 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7-node
+      - image: circleci/ruby:2.5.8-stretch
     steps:
       - setup
   test:
     docker:
-      - image: circleci/ruby:2.7-node
+      - image: circleci/ruby:2.5.8-stretch
         environment:
           RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1
