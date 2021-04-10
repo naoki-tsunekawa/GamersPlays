@@ -4,8 +4,8 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.8-node-browsers
         environment:
-          RAILS_ENV: test
-          DATABASE_HOST: 127.0.0.1
+        - BUNDLER_VERSION: 2.0.2
+        - RAILS_ENV: test
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: 'test'
