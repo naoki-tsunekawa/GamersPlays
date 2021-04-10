@@ -33,6 +33,11 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+        name: default mysql client install
+        command: |
+          sudo apt update
+          sudo apt-get install default-mysql-client
       # Database setup
       - run: bundle exec rails db:create
       - run: bundle exec rails db:schema:load
