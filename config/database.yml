@@ -27,6 +27,7 @@ development:
 test:
   <<: *default
   database: GamersPlays_test
+  host:  <%= ENV['DATABASE_HOST'] } %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -47,18 +48,18 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: GamersPlays_production
-#   username: GamersPlays
-#   password: <%= ENV['GAMERSPLAYS_DATABASE_PASSWORD'] %>
 production:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] %>
-  adapter: mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_general_ci
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  database: GamersPlays_production
+  username: GamersPlays
+  password: <%= ENV['GAMERSPLAYS_DATABASE_PASSWORD'] %>
+# production:
+#   <<: *default
+#   database: <%= ENV['DB_DATABASE'] %>
+#   adapter: mysql2
+#   encoding: utf8mb4
+#   charset: utf8mb4
+#   collation: utf8mb4_general_ci
+#   host: <%= ENV['DB_HOST'] %>
+#   username: <%= ENV['DB_USERNAME'] %>
+#   password: <%= ENV['DB_PASSWORD'] %>
